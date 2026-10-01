@@ -1,8 +1,8 @@
 # ITZFIZZ Digital Experiences
 
-## Live Demo
+## Live 
 
-[Open the live website](https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/)
+[Open the live website](https://sahil-narula7.github.io/Assignment-ITZFIZZ/)
 
 A front-end web development assignment for ITZFIZZ. The page presents a premium dark automotive-style experience with a scroll-controlled 3D car, project showcase, capabilities, and contact footer.
 
