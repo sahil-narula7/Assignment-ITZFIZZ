@@ -27,8 +27,13 @@ if (heroObject) {
 				return;
 			}
 
+			const progress = modelJourney.progress();
+			const handoff = gsap.utils.clamp(0, 1, (progress - 0.78) / 0.22);
+
 			carViewer.cameraOrbit = `${orbit.angle}deg ${orbit.elevation}deg ${orbit.distance}%`;
 			carViewer.autoRotate = false;
+			gsap.set(heroObject, { autoAlpha: 1 - handoff });
+			gsap.set(".top-view-model", { autoAlpha: handoff });
 		}
 	});
 
@@ -76,4 +81,5 @@ if (heroObject) {
 			}
 		});
 	}
+
 }
