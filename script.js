@@ -1,5 +1,55 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const modelViewer = document.querySelector('model-viewer');
+const progressBar = document.getElementById('custom-bar');
+const progressText = document.getElementById('progress-text');
+const loadingScreen = document.getElementById('loading-screen');
+
+if (modelViewer) {
+	
+    modelViewer.addEventListener('progress', (event) => {
+        // Calculate raw percentage integer
+        const progress = Math.round(event.detail.totalProgress * 100);
+        
+        // Dynamically update UI indicators
+        progressBar.style.width = `${progress}%`;
+        progressText.innerText = `${progress}%`;
+        
+        // Once completely downloaded and initialized in memory
+        if (progress === 100) {
+            hideLoadingScreen();
+        }
+    });
+}
+
+function hideLoadingScreen() {
+    // Check if GSAP is available on the window object
+    if (typeof gsap !== 'undefined') {
+        const tl = gsap.timeline();
+        
+        // Beautiful, smooth cinematic fade out animation sequence
+        tl.to([progressBar, progressText], {
+            opacity: 0,
+            duration: 0.3
+        })
+        .to(loadingScreen, {
+            yPercent: -100, // Slides up out of view smoothly like a curtain
+            duration: 0.8,
+            ease: "power4.inOut"
+        }, "+=0.2")
+        .from(".hero-text h1", {
+            y: 50,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.6,
+            ease: "power3.out"
+        }, "-=0.3"); // Staggers your landing text right as the layout reveals
+    } else {
+        // Simple fallback toggle if script engines fail
+        loadingScreen.style.display = 'none';
+    }
+}
+
 if ("scrollRestoration" in history) {
 	history.scrollRestoration = "manual";
 }
